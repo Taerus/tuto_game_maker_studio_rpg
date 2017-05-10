@@ -11,11 +11,25 @@ if (hspd != 0 || vspd != 0) {
 // Horizontal movement
 if (!place_meeting(x+hspd, y, o_solid)) {
     x += hspd;
+} else {
+    x = round(x);
+    for (var i=0; i < abs(hspd); i++) {
+        if (!place_meeting(x+sign(hspd), y, o_solid)) {
+            x += sign(hspd);
+        }
+    }
 }
 
 // Vertical movement
 if (!place_meeting(x, y+vspd, o_solid)) {
     y += vspd;
+} else {
+    y = round(y);
+    for (var i=0; i < abs(vspd); i++) {
+        if (!place_meeting(x, y+sign(vspd), o_solid)) {
+            y += sign(vspd);
+        }
+    }
 }
 
 var moved = (x != xprevious || y != yprevious);

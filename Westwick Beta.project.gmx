@@ -227,15 +227,34 @@
     <script>scripts\get_input.gml</script>
     <script>scripts\elizabeth_move_state.gml</script>
     <script>scripts\view_follow_elizabeth_state.gml</script>
+    <script>scripts\set_tile_depth.gml</script>
+    <script>scripts\elizabeth_wait_state.gml</script>
+    <script>scripts\get_class_data.gml</script>
+    <script>scripts\calculate_health.gml</script>
+    <script>scripts\get_stats_from_class.gml</script>
+    <script>scripts\encounter.gml</script>
   </scripts>
   <objects name="objects">
+    <object>objects\o_game</object>
     <object>objects\o_input</object>
+    <object>objects\o_data</object>
+    <object>objects\o_player_stats</object>
     <object>objects\o_elizabeth</object>
     <object>objects\o_solid</object>
     <object>objects\o_view_parent</object>
     <object>objects\o_view</object>
+    <object>objects\o_door</object>
+    <object>objects\o_start_position</object>
+    <object>objects\o_fade_transition</object>
+    <object>objects\o_battle_transition</object>
+    <object>objects\o_random_encounters</object>
+    <object>objects\o_last_encounter</object>
+    <object>objects\o_decoration_parent</object>
+    <object>objects\o_stump</object>
+    <object>objects\o_rock</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\r_init</room>
     <room>rooms\r_town</room>
     <room>rooms\r_letter</room>
     <room>rooms\r_game_over</room>
@@ -260,7 +279,7 @@
     </rooms>
     <room>rooms\r_battle</room>
     <room>rooms\r_blank</room>
-    <room>rooms\r_init</room>
+    <room>rooms\r_north_meadow</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

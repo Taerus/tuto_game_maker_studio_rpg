@@ -4,8 +4,8 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>0</persistent>
-  <parentName>o_view_parent</parentName>
+  <persistent>-1</persistent>
+  <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -25,25 +25,26 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Initialize the view
-event_inherited();
+            <string>/// Initialize the player's states
+level = 1;
+class = o_data.classes[? "elizabeth"];
 
-// Set the view state
-state = view_follow_elizabeth_state;
+// Get the stats from the class
+stats = get_stats_from_class("elizabeth");
+draw_health = stats[? "health"];
 
-// Update the target point
-target[? "x"] = x;
-target[? "y"] = y;
+// Item list
+items = ds_list_create();
+item_number = ds_list_create();
 
-// Move the view
-view_xview[0] = x-view_wview[0]/2;
-view_yview[0] = y-view_hview[0]/2;
+// Action list
+actions = ds_list_create();
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="3" enumb="2">
+    <event eventtype="1" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -60,14 +61,17 @@ view_yview[0] = y-view_hview[0]/2;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Run the view state
-script_execute(state);
+            <string>/// Destroy the lists
+ds_list_destroy(items);
+ds_list_destroy(item_number);
+ds_list_destroy(actions);
+ds_map_destroy(stats);
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="7" enumb="5">
+    <event eventtype="3" enumb="1">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -84,8 +88,51 @@ script_execute(state);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Destroy the view
-instance_destroy();
+            <string>/// Update the draw health
+var dis = draw_health - stats[? "health"];
+if (dis &gt; 1) {
+    draw_health = lerp(draw_health, stats[? "health"], .1);
+} else {
+    draw_health = stats[? "health"];
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Update the stats for death and level-up
+
+// Check for death
+if (draw_health &lt;= 0) {
+    room_goto(r_game_over);
+}
+
+// Check for level-up
+if (stats[? "experience"] &gt;= stats[? "maxexperience"]) {
+    // Update the stats
+    level++;
+    stats[? "experience"] -= stats[? "maxexperience"];
+    stats[? "maxexperience"] = level*10;
+    stats[? "maxhealth"] = calculate_health(level, class[? "health"])
+    stats[? "health"] = stats[? "maxhealth"];
+}
 </string>
           </argument>
         </arguments>

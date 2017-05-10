@@ -111,8 +111,17 @@ view_xview[0] = (x-view_wview[0]/2) + irandom_range(-screenshake, screenshake);
 view_yview[0] = (y-view_hview[0]/2) + irandom_range(-screenshake, screenshake);
 
 // move view toward the target point
-x = lerp(x, target[? "x"], spd);
-y = lerp(y, target[? "y"], spd);
+if (abs(x - target[? "x"]) &lt; .25) {
+    x = target[? "x"];
+} else {
+    x = lerp(x, target[? "x"], spd);
+}
+
+if (abs(y - target[? "y"]) &lt; .25) {
+    y = target[? "y"];
+} else {
+    y = lerp(y, target[? "y"], spd);
+}
 </string>
           </argument>
         </arguments>

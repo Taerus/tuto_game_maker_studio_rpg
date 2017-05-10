@@ -25,14 +25,14 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Initialize the input object
-get_input();
+            <string>/// Load the data
+classes = get_class_data();
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="3" enumb="1">
+    <event eventtype="1" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -49,8 +49,8 @@ get_input();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Get the input
-get_input();
+            <string>/// Destroy the ds maps
+ds_map_destroy(classes);
 </string>
           </argument>
         </arguments>
